@@ -21,3 +21,6 @@ http://localhost:8081/api-datos/usuarios/email?email=postman@api.com
 
 DELETE 
 http://localhost:8081/api-datos/usuarios/email?email=postman@api.com
+
+mvn clean package
+mvn spring-boot:run
