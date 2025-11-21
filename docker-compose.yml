@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  tskflow-db:
+    image: postgres:17
+    container_name: tskflow-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: tskflow
+      POSTGRES_USER: admin-tsk
+      POSTGRES_PASSWORD: tsk006
+    volumes:
+      - tkflow_data:/var/lib/postgresql/data/
+    restart: always
+
+  api-datos:
+    build: ./apiDatos
+    container_name: api-datos
+    depends_on:
+      - tskflow-db
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://tskflow-db:5432/tskflow
+      SPRING_DATASOURCE_USERNAME: admin-tsk
+      SPRING_DATASOURCE_PASSWORD: tsk006
+    restart: always
+
+  backend-web:
+    build: ./backend
+    container_name: backend-web
+    depends_on:
+      - api-datos
+    ports:
+      - "8080:8080"
+    environment:
+      API_DATOS_URL: http://api-datos:8081/api-datos
+    restart: always
+
+volumes:
+  tkflow_data:
