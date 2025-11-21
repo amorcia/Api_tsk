@@ -1,0 +1,23 @@
+POST
+http://localhost:8081/api-datos/usuarios
+{
+    "nombre": "Test Postman",
+    "email": "postman@api.com",
+    "activo": true,
+    "rolNombre": "Colaborador"
+}
+
+GET
+http://localhost:8081/api-datos/usuarios
+
+PUT
+http://localhost:8081/api-datos/usuarios/email?email=postman@api.com
+{
+    "nombre": "Test Postman (Editado)",
+    "email": "postman@api.com",
+    "activo": false,
+    "rolNombre": "DV"
+}
+
+DELETE 
+http://localhost:8081/api-datos/usuarios/email?email=postman@api.com
